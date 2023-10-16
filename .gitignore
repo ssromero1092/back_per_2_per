@@ -1,0 +1,8 @@
+# Directorios generados por Node.js
+node_modules/
+npm-debug.log
+
+# Archivos generados por la ejecución de scripts Node.js
+package-lock.json
+yarn.lock
+
