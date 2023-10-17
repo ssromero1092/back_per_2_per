@@ -1,3 +1,4 @@
+// Datos y peticion a la base de datos, para conectarse
 const mongoose = require('mongoose')
 const password = 'sXajVD06HFNKib8F'
 const dbname = 'per2per'

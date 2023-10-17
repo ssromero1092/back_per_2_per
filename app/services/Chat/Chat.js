@@ -1,4 +1,4 @@
-//chatlog
+//modelo tabla chatlog
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const Chatlog = new Schema({
