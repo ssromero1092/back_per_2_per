@@ -33,7 +33,7 @@ module.exports = {
     async postChat(req, res) {
         const { usuario, valor_entrada, tipo_mensaje } = req.body;
         const timestamp = new Date().getTime();
-        const cambia_tipo_mensaje =''
+        let cambia_tipo_mensaje =''
         let valor_salida
 
 
