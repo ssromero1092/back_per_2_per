@@ -1,8 +1,7 @@
 const axios = require('axios');
+const Chat = require('./Chat');
 const access_key = '85daa250a0ea3921a1eb4b4212ba68e4';
-const currencies = 'COP';
 const COP = 'COP';
-const source = 'USD';
 const USD = 'USD';
 const format = 1;
 const apiUrl = 'http://apilayer.net/api/live';
@@ -10,54 +9,69 @@ const urlUSDtoCOP = apiUrl + '?access_key=' + access_key + '&currencies=' + COP 
 const urlCOPtoUSD = apiUrl + '?access_key=' + access_key + '&currencies=' + USD + '&source=' + COP + '&format=' + format;
 
 module.exports = {
-    async getChat(req, res) {
 
-        await module.exports.CambioUSDaCOP();
-        const datos=await module.exports.CambioCOPaUSD();
-        /*res.status(datos.status).json({
-            estado: datos.estado,
-            msg: datos.msg,
+    async postChat(req, res) {
+        const {usuario,valor_entrada,tipo_mensaje } = req.body;
+        const timestamp = new Date().getTime();
+        console.log({usuario},{valor_entrada},{tipo_mensaje},{timestamp});
+        let valor_salida
+        
+
+        let datos={};
+        if (tipo_mensaje=='USD') {
+            datos= await module.exports.CambioUSDaCOP();
+
+            valor_salida=datos.data.quotes.USDCOP
+        } else {
+            datos= await module.exports.CambioCOPaUSD();
+            valor_salida=datos.data.quotes.COPUSD
+        }
+        console.log(datos.data.quotes);
+        const chatlog = new Chat ({
+            usuario,
+            valor_entrada,
+            valor_salida,
+            tipo_mensaje,
+            timestamp
+        });
+        
+        const graba = await chatlog.save(); 
+        console.log(graba);
+        res.status(datos.status).json({
+            estado: datos.status,
+            msg: datos.statusText,
             data: datos.data,
-        })*/
+        })
 
-        console.log({datos});
+        
     },
 
     async CambioUSDaCOP() {
-        axios.post(urlUSDtoCOP)
+        return axios.post(urlUSDtoCOP)
             .then(response => {
-                // Manejar la respuesta de la API aquí
-                //console.log('Respuesta de la API:', response.data);
+                return response
             })
             .catch(error => {
-                // Manejar errores de la API aquí
-                //console.error('Error al realizar la solicitud:', error.message);
+                return datos={
+                    status: 201,
+                    statusText: error,
+                    data: '',
+                } 
             });
     },
 
     async CambioCOPaUSD() {
-        const resp1=axios.post(urlCOPtoUSD)
-            
+        return axios.post(urlCOPtoUSD)
             .then(response => {
-                // Manejar la respuesta de la API aquí
-                console.log('Respuesta de la API:', response.data);
-                return {
-                    status: 200,
-                    estado: true,
-                    msg: 'Tipo cambio',
-                    data: response.data,
-                };
-
-
-
-
+                return response
             })
             .catch(error => {
-                // Manejar errores de la API aquí
-                console.error('Error al realizar la solicitud:', error.message);
+                return datos={
+                    status: 201,
+                    statusText: error,
+                    data: '',
+                } 
             });
-            
-        console.log('11',resp1.status);
     }
 
 

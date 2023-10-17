@@ -7,7 +7,7 @@ const chatController = require('./ChatController')
 
 
 
-router.get('/',chatController.getChat);
+router.post('/',chatController.postChat);
 
 
 
