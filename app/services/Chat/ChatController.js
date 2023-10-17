@@ -21,10 +21,10 @@ module.exports = {
         if (tipo_mensaje=='USD') {
             datos= await module.exports.CambioUSDaCOP();
 
-            valor_salida=datos.data.quotes.USDCOP
+            valor_salida=datos.data.quotes.USDCOP*valor_entrada
         } else {
             datos= await module.exports.CambioCOPaUSD();
-            valor_salida=datos.data.quotes.COPUSD
+            valor_salida=datos.data.quotes.COPUSD*valor_entrada
         }
         console.log(datos.data.quotes);
         const chatlog = new Chat ({
