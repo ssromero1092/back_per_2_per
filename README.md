@@ -13,11 +13,11 @@ Asegúrate de tener lo siguiente instalado en tu sistema antes de ejecutar el ba
 
 1. Clona este repositorio en tu máquina local:
 
-  git clone https://github.com/tuusuario/back_per_2_peper.git
+  git clone https://github.com/ssromero1092/back_per_2_per.git
 
 2. Navega al directorio del proyecto:
 
-  cd back_per_2_peper
+  cd back_per_2_per
 
 3. Instala las dependencias del proyecto:
 
