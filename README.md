@@ -1,6 +1,6 @@
 # Backend back_per_2_per 
 
-Este es el backend de la aplicación "back_per_2_peper", desarrollado en Node.js 16.20.2.
+Este es el backend de la aplicación "back_per_2_per", desarrollado en Node.js 16.20.2.
 
 ## Requisitos
 
