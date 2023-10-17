@@ -11,7 +11,6 @@ const urlCOPtoUSD = apiUrl + '?access_key=' + access_key + '&currencies=' + USD 
 module.exports = {
 
     async getChat(req, res) {
-        console.log('prueba11111111');
         const chatlog = await Chat.find().sort({ timestamp: -1 });
         if (!chatlog || chatlog.length <= 0) {
             res.status(204).json({
