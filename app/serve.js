@@ -3,12 +3,12 @@ const cors = require('cors');
 const app=express()
 const connection=require('../app/db/connection')
 
-async function start(){
+/*async function start(){
     const prueba = await connection()
     console.log('Conexion Exitosa a la BD');
 };
 
-start();
+start();*/
 
 
 const routesChat = require('./routes/chatRoutes');

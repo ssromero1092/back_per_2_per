@@ -27,6 +27,7 @@ module.exports = {
             valor_salida=datos.data.quotes.COPUSD
         }
         console.log(datos.data.quotes);
+        /*
         const chatlog = new Chat ({
             usuario,
             valor_entrada,
@@ -37,6 +38,8 @@ module.exports = {
         
         const graba = await chatlog.save(); 
         console.log(graba);
+
+        */
         res.status(datos.status).json({
             estado: datos.status,
             msg: datos.statusText,
