@@ -13,7 +13,6 @@ module.exports = {
     async postChat(req, res) {
         const {usuario,valor_entrada,tipo_mensaje } = req.body;
         const timestamp = new Date().getTime();
-        console.log({usuario},{valor_entrada},{tipo_mensaje},{timestamp});
         let valor_salida
         
 
@@ -26,7 +25,6 @@ module.exports = {
             datos= await module.exports.CambioCOPaUSD();
             valor_salida=datos.data.quotes.COPUSD*valor_entrada
         }
-        console.log(datos.data.quotes);
         const chatlog = new Chat ({
             usuario,
             valor_entrada,
@@ -36,7 +34,6 @@ module.exports = {
         });
         
         const graba = await chatlog.save(); 
-        console.log(graba);
         res.status(datos.status).json({
             estado: datos.status,
             msg: datos.statusText,
