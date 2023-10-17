@@ -33,15 +33,17 @@ module.exports = {
     async postChat(req, res) {
         const { usuario, valor_entrada, tipo_mensaje } = req.body;
         const timestamp = new Date().getTime();
+        const cambia_tipo_mensaje =''
         let valor_salida
 
 
         let datos = {};
         if (tipo_mensaje == 'USD') {
+            cambia_tipo_mensaje='USDCOP'
             datos = await module.exports.CambioUSDaCOP();
-
             valor_salida = datos.data.quotes.USDCOP * valor_entrada
         } else {
+            cambia_tipo_mensaje='COPUSD'
             datos = await module.exports.CambioCOPaUSD();
             valor_salida = datos.data.quotes.COPUSD * valor_entrada
         }
@@ -49,7 +51,7 @@ module.exports = {
             usuario,
             valor_entrada,
             valor_salida,
-            tipo_mensaje,
+            tipo_mensaje:cambia_tipo_mensaje,
             timestamp
         });
 
