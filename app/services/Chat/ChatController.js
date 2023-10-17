@@ -10,37 +10,58 @@ const urlCOPtoUSD = apiUrl + '?access_key=' + access_key + '&currencies=' + USD 
 
 module.exports = {
 
+    async getChat(req, res) {
+        console.log('prueba11111111');
+        const chatlog = await Chat.find().sort({ timestamp: -1 });
+        if (!chatlog || chatlog.length <= 0) {
+            res.status(204).json({
+                estado: '204',
+                msg: '',
+                data: [],
+            });
+        } else {
+            res.status(200).json({
+                estado: '200',
+                msg: 'datos',
+                data: chatlog,
+            })
+
+        }
+    },
+
+
+
     async postChat(req, res) {
-        const {usuario,valor_entrada,tipo_mensaje } = req.body;
+        const { usuario, valor_entrada, tipo_mensaje } = req.body;
         const timestamp = new Date().getTime();
         let valor_salida
-        
 
-        let datos={};
-        if (tipo_mensaje=='USD') {
-            datos= await module.exports.CambioUSDaCOP();
 
-            valor_salida=datos.data.quotes.USDCOP*valor_entrada
+        let datos = {};
+        if (tipo_mensaje == 'USD') {
+            datos = await module.exports.CambioUSDaCOP();
+
+            valor_salida = datos.data.quotes.USDCOP * valor_entrada
         } else {
-            datos= await module.exports.CambioCOPaUSD();
-            valor_salida=datos.data.quotes.COPUSD*valor_entrada
+            datos = await module.exports.CambioCOPaUSD();
+            valor_salida = datos.data.quotes.COPUSD * valor_entrada
         }
-        const chatlog = new Chat ({
+        const chatlog = new Chat({
             usuario,
             valor_entrada,
             valor_salida,
             tipo_mensaje,
             timestamp
         });
-        
-        const graba = await chatlog.save(); 
+
+        const graba = await chatlog.save();
         res.status(datos.status).json({
             estado: datos.status,
             msg: datos.statusText,
             data: datos.data,
         })
 
-        
+
     },
 
     async CambioUSDaCOP() {
@@ -49,11 +70,11 @@ module.exports = {
                 return response
             })
             .catch(error => {
-                return datos={
+                return datos = {
                     status: 201,
                     statusText: error,
                     data: '',
-                } 
+                }
             });
     },
 
@@ -63,11 +84,11 @@ module.exports = {
                 return response
             })
             .catch(error => {
-                return datos={
+                return datos = {
                     status: 201,
                     statusText: error,
                     data: '',
-                } 
+                }
             });
     }
 
